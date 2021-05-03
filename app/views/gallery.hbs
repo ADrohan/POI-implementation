@@ -1,0 +1,15 @@
+<div class="uk-flex uk-flex-center uk-flex-middle uk-grid-small" uk-grid>
+  {{> title-panel title="Waterford Walks." subTitle="Add a Point of Interest" }}
+  {{> main-menu }}
+</div>
+
+<h1 class="uk-heading-primary">Cloudinary Gallery</h1>
+
+
+<div class="uk-container uk-padding-small">
+  <div class="uk-child-width-1-4@s uk-flex uk-flex-center" uk-grid uk-height-match="target: .uk-card">
+    {{#each images}}
+      {{> gallery-image-card}}
+    {{/each}}
+  </div>
+</div>

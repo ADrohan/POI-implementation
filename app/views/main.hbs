@@ -1,0 +1,29 @@
+<!-- The maon landing page -->
+<div class="uk-flex uk-flex-center uk-flex-middle uk-grid-small" uk-grid>
+    {{> title-panel title="Waterford Walks" subTitle="sign up or log in to keep track of all your favourite walking spots in Waterford County" }}
+    {{> welcome-menu }}
+</div>
+
+<!-- Slideshow users can tab through-->
+<div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow>
+    <ul class="uk-slideshow-items">
+        <li>
+            <img data-src="images/greenway1800x1000.jpg" width="1800" height="1000" alt="image" uk-cover
+                 uk-img="target: !ul > :last-child, !* +*">
+        </li>
+        <li>
+            <img data-src="images/comeraghs1800x1000.jpg" width="1800" height="1000" alt="image" uk-cover
+                 uk-img="target: !* -*, !* +*">
+        </li>
+        <li>
+            <img data-src="images/greenway1800x1000.jpg" width="1800" height="1000" alt="image" uk-cover
+                 uk-img="target: !* -*, !ul > :first-child">
+        </li>
+    </ul>
+
+    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous
+       uk-slideshow-item="previous"></a>
+    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next
+       uk-slideshow-item="next"></a>
+    {{> error }}
+</div>

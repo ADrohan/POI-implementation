@@ -1,0 +1,21 @@
+<!--page to view pois-->
+<div class="uk-flex uk-flex-center uk-flex-middle uk-grid-small" uk-grid>
+    {{> title-panel title="Waterford Walks." subTitle="Points of interest" }}
+    {{> main-menu }}
+</div>
+
+<div class="uk-container uk-margin">
+    <div class="uk-flex-center uk-flex-middle uk-text-center" uk-grid>
+        <div class="uk-width-expand@m">
+            {{> pois }}
+        </div>
+    </div>
+</div>
+
+<div class="uk-container uk-padding-small">
+  <div class="uk-child-width-1-4@s uk-flex uk-flex-center" uk-grid uk-height-match="target: .uk-card">
+    {{#each images}}
+      {{> image-card}}
+    {{/each}}
+  </div>
+</div>
