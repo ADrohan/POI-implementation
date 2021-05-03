@@ -20,7 +20,9 @@ const Pois = {
     handler: async function (request, h) {
       try {
         const allImages = await ImageStore.getAllImages();
-        const poiList = await Poi.find().populate("user").populate("category").lean();
+        const id = request.auth.credentials.id;
+        const user = await User.findById(id).lean();
+        const poiList = await Poi.find({user:user}).populate("user").populate("category").lean();
         return h.view("allpois", {
           title: "Pois so far",
           pois: poiList,
