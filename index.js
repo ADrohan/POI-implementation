@@ -65,7 +65,7 @@ async function init() {
 
   // Initialize routes
   server.route(require("./routes"));
-
+  server.route(require('./routes-api'));
   //start the server
   await server.start();
   console.log(`Server running at: ${server.info.uri}`);
