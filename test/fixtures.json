@@ -12,5 +12,9 @@
     {
       "name": "rivers"
     }
-  ]
+  ],
+  "newCategory":
+  {
+    "name": "lakes"
+  }
 }

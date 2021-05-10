@@ -21,6 +21,20 @@ class PoiService {
       return null;
     }
   }
+  async createCategory(newCategory) {
+    const response = await axios.post(this.baseUrl + "/api/categories", newCategory);
+    return response.data;
+  }
+
+  async deleteAllCategories() {
+    const response = await axios.delete(this.baseUrl + "/api/categories");
+    return response.data;
+  }
+
+  async deleteOneCategory(id) {
+    const response = await axios.delete(this.baseUrl + "/api/categories/" + id);
+    return response.data;
+  }
 
   async getUsers() {
     const response = await axios.get(this.baseUrl + "/api/users");
