@@ -7,7 +7,7 @@ const fixtures = require("./fixtures.json");
 const _ = require('lodash');
 
 suite("Category API tests", function () {
-  let candidates = fixtures.categories;
+  let categories = fixtures.categories;
   let newCategory = fixtures.newCategory;
 
   const poiService = new PoiService("http://localhost:3000");
@@ -18,6 +18,16 @@ suite("Category API tests", function () {
     //assert.equal(returnedCategory.name, newCategory.name);
     assert.isDefined(returnedCategory._id);
   });
+
+  test("delete a category", async function () {
+    let c = await poiService.createCategory(newCategory);
+    console.log(c);
+    assert(c._id != null);
+    await poiService.deleteOneCategory(c._id);
+    c = await poiService.getCategory(c._id);
+    assert(c == null);
+  });
+
 });
 
 /*

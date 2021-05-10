@@ -48,8 +48,8 @@ const Categories = {
   deleteOne: {
     auth: false,
     handler: async function (request, h) {
-      const category = await Category.remove({ _id: request.params.id });
-      if (category) {
+      const response = await Category.deleteOne({ _id: request.params.id });
+      if (response.deletedCount == 1) {
         return { success: true };
       }
       return Boom.notFound("id not found");

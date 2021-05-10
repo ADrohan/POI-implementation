@@ -13,7 +13,7 @@ class PoiService {
     return response.data;
   }
 
-  async getCategories(id) {
+  async getCategory(id) {
     try {
       const response = await axios.get(this.baseUrl + "/api/categories/" + id);
       return response.data;
