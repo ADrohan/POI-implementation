@@ -42,5 +42,37 @@
     "lastName": "Simpson",
     "email": "maggie@simpson.com",
     "password": "secret"
-  }
+  },
+  "pois": [
+    {
+      "name": "Tramore Beach",
+      "description": "A view of the strand in Tramore",
+      "location": "Tramore"
+    },
+    {
+      "name": "Metalman",
+      "description": "The metalman stands on one of 3 pillars in Tramore near Newtown Cove",
+      "location": "Tramore"
+    },
+    {
+      "name": "Mahon Falls",
+      "description": "An 80m waterfall nested in the Comeragh Mountains. ",
+      "location": "Comeragh Mountains"
+    },
+    {
+      "name": "city sights",
+      "description": "a nice city walking route, beside John's river, from the city centre to the Tramore Road",
+      "location": "Waterford"
+    },
+    {
+      "name": "The Prom",
+      "description": "The prom in tramore, perfect for an easy relaxed stroll",
+      "location": "Tramore"
+    },
+    {
+      "name": "Waterford Nature Park",
+      "description": "a 150 acres oasis within Waterford city",
+      "location": "Waterford"
+    }
+  ]
 }
