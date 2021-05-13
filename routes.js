@@ -23,7 +23,7 @@ module.exports = [
   { method: "POST", path: "/addpoi", config: Pois.addpoi },
   { method: "GET", path: "/deletepoi/{id}", config: Pois.deletepoi},
   { method: "GET", path: "/poisettings/{id}", config: Pois.showpoi},
-  { method: "POST", path: "/poisettings/{id}", config: Pois.updatepoi},
+  { method: "POST", path: "/updatepoi/{id}", config: Pois.updatepoi},
 
   // routes for images
  // { method: 'POST', path: '/uploadfile', config: Gallery.uploadFile },

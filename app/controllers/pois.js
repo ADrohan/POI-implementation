@@ -135,14 +135,12 @@ const Pois = {
         const userEdit = request.payload;
         const poi_id = request.params.id;
         const poi= await Poi.findById(poi_id);
-
         const user_id = request.auth.credentials.id;
         const user = await User.findById(user_id);
-
         const rawCategory = userEdit.category;
         const category = await Category.findOne({
-          name: rawCategory,
-        })
+          name: rawCategory
+        }).lean();
         poi.name = userEdit.name;
         poi.description = userEdit.description;
         poi.location = userEdit.location;

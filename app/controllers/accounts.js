@@ -92,7 +92,7 @@ const Accounts = {
       options: {
         abortEarly: false,
       },
-      failAction: function (request, h, error) {
+      failAction: function (request, h,error) {
         return h
           .view("login", {
             title: "Login error",
