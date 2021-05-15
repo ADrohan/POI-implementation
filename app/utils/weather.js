@@ -1,6 +1,7 @@
+'use strict'
+
 const axios = require('axios');
 const apiKey = process.env.apiKey;
-//const apiKey = "aeb8641c6bcbc68e952995fa7210cd6f";
 
 const Weather = {
 

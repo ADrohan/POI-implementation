@@ -10,7 +10,7 @@ Controller for user accounts
 - update account setting
 */
 const Accounts = {
-  // controller for first landing page
+  // controller for first landing page with current weather implemented
   index: {
     auth: false,
     handler: async function (request, h) {
