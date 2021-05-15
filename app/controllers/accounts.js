@@ -2,6 +2,7 @@
 const User = require("../models/user");
 const Boom = require("@hapi/boom");
 const Joi = require("@hapi/joi");
+const Weather = require("../utils/weather");
 /*
 Controller for user accounts
 - signup
@@ -12,8 +13,27 @@ const Accounts = {
   // controller for first landing page
   index: {
     auth: false,
-    handler: function (request, h) {
-      return h.view("main", { title: "Welcome to Point of Information" });
+    handler: async function (request, h) {
+      const location = `Waterford`;
+      let report = await Weather.readWeather(location);
+      console.log(report);
+
+      function renderCell(row, col, value) {
+        const cell = row.insertCell(col);
+        cell.innerHTML = value;
+      }
+      async function renderWeather(report) {
+        let table, row;
+        table = ("weather-table");
+        row = table.insertRow(0);
+        renderCell(row, 0, report.feelsLike);
+        renderCell(row,1, report.clouds);
+        renderCell(row,2, report.windSpeed);
+        renderCell(row,3, report.windDirection);
+        renderCell(row,4, report.visibility);
+        renderCell(row,5, report.humidity);
+      }
+      return h.view("main", { title: "Welcome to Point of Information", report: report });
     },
   },
   // controller to view the signup page

@@ -4,6 +4,32 @@
     {{> welcome-menu }}
 </div>
 
+<table id="weather-table" class="uk-table uk-table-divider">
+  <caption> Current Waterford Weather: </caption>
+  <thead>
+  <tr>
+    <th>Temperature</th>
+    <th>Feels Like</th>
+    <th>Clouds</th>
+    <th>Wind Speed</th>
+    <th>Wind Direction</th>
+    <th>Visibility</th>
+    <th>Humidity</th>
+  </tr>
+  </thead>
+  <tbody class="uk-text-left">
+  <tr>
+    <td>{{report.temp}}</td>
+    <td>{{report.feelsLike}}</td>
+    <td>{{report.clouds}}</td>
+    <td>{{report.windSpeed}}</td>
+    <td>{{report.windDirection}}</td>
+    <td>{{report.visibility}}</td>
+    <td>{{report.humidity}}</td>
+  </tr>
+  </tbody>
+</table>
+
 <!-- Slideshow users can tab through-->
 <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow>
     <ul class="uk-slideshow-items">
