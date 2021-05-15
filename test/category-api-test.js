@@ -10,8 +10,20 @@ const _ = require('lodash');
 suite("Category API tests", function () {
   let categories = fixtures.category;
   let newCategory = fixtures.newCategory;
+  let newUser = fixtures.newUser;
 
   const poiService = new PoiService("http://localhost:3000");
+
+  suiteSetup(async function () {
+    await poiService.deleteAllUsers();
+    const returnedUser = await poiService.createUser(newUser);
+    const response = await poiService.authenticate(newUser);
+  });
+
+  suiteTeardown(async function () {
+    await poiService.deleteAllUsers();
+    poiService.clearAuth();
+  })
 
   setup(async function () {
     await poiService.deleteAllCategories();

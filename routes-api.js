@@ -24,6 +24,7 @@ module.exports = [
   { method: 'GET', path: '/api/pois/{id}', config: Pois.findOne }, // working
  // { method: 'GET', path: 'api/poi/user', config: Pois.findByUser} // poi-service & tests to do
 
+  { method: "POST", path: "/api/users/authenticate", config: Users.authenticate },
  // { method: 'GET', path: '/api/images', config: Images.find } // tests to do
   //{ method: 'POST', path: '/api/images', config: Images.upload } // tests to do
   //{ method: 'DELETE', path: '/api/images/{id}', config: Images.delete } // tests to do
