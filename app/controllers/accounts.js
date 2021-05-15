@@ -51,10 +51,13 @@ const Accounts = {
     auth: false,
     validate: {
       payload: {
-        firstName: Joi.string().required(),
-        lastName: Joi.string().required(),
+        //firstName: Joi.string().required(),
+        firstName:Joi.string().regex(/^[A-ZÁÉÍÓÚ][A-Za-zÁÉÍÓÚáéíóú]/).max(20),
+        //lastName: Joi.string().required(),
+        lastName: Joi.string().regex(/^[A-ZÁÉÍÓÚ][ A-Za-zÁÉÍÓÚáéíóú]/).max(30),
         email: Joi.string().email().required(),
-        password: Joi.string().required(),
+        //password: Joi.string().required(),
+        password: Joi.string().regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/),
       },
       options: {
         abortEarly: false,
@@ -63,6 +66,7 @@ const Accounts = {
         return h
           .view("signup", {
             title: "Sign up error",
+          //  errors: error.details,
             errors: error.details,
           })
           .takeover()
@@ -107,7 +111,9 @@ const Accounts = {
     validate: {
       payload: {
         email: Joi.string().email().required(),
-        password: Joi.string().required(),
+        //password: Joi.string().required(),
+        password: Joi.string().regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/),
+
       },
       options: {
         abortEarly: false,
@@ -154,10 +160,13 @@ const Accounts = {
   updateSettings: {
     validate: {
       payload: {
-        firstName: Joi.string().required(),
-        lastName: Joi.string().required(),
+        //firstName: Joi.string().required(),
+        firstName: Joi.string().regex(/^[A-ZÁÉÍÓÚ][A-Za-zÁÉÍÓÚáéíóú]/).max(20),
+        //lastName: Joi.string().required(),
+        lastName: Joi.string().regex(/^[A-ZÁÉÍÓÚ][ A-Za-zÁÉÍÓÚáéíóú]/).max(30),
         email: Joi.string().email().required(),
-        password: Joi.string().required(),
+        //password: Joi.string().required(),
+        password: Joi.string().regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/),
       },
       options: {
         abortEarly: false,
