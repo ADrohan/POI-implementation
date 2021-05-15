@@ -1,3 +1,5 @@
+// The app currently doesn't include creation/deletion of categories
+
 'use strict';
 
 const Category = require('../models/category');
@@ -6,10 +8,14 @@ const Boom = require("@hapi/boom");
 const Categories = {
   find: {
     auth: false,
-    handler: async function (request, h) {
-      const categories = await Category.find();
-      return categories;
-    },
+    handler: async function(request, h) {
+      try {
+        const categories = await Category.find();
+        return categories;
+      } catch (err) {
+        return Boom.notFound("could not find categories")
+      }
+    }
   },
   findOne: {
     auth: false,
@@ -40,7 +46,7 @@ const Categories = {
   deleteAll: {
     auth: false,
     handler: async function (request, h) {
-      await Category.remove({});
+      await Category.deleteMany({});
       return { success: true };
     },
   },

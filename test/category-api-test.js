@@ -6,8 +6,9 @@ const PoiService = require("./poi-service");
 const fixtures = require("./fixtures.json");
 const _ = require('lodash');
 
+// TEST SUITE FOR CATEGORY API
 suite("Category API tests", function () {
-  let categories = fixtures.categories;
+  let categories = fixtures.category;
   let newCategory = fixtures.newCategory;
 
   const poiService = new PoiService("http://localhost:3000");
@@ -20,18 +21,21 @@ suite("Category API tests", function () {
     await poiService.deleteAllCategories();
   });
 
+  //testing creating a category
   test("create a category", async function () {
     const returnedCategory = await poiService.createCategory(newCategory);
     assert(_.some([returnedCategory], newCategory), "returnedCategory must be a superset of newCategory");
     assert.isDefined(returnedCategory._id);
   });
 
+  //testing finding a category
   test("get category", async function () {
     const c1 = await poiService.createCategory(newCategory);
     const c2 = await poiService.getCategory(c1._id);
     assert.deepEqual(c1, c2);
   });
 
+  // test for invalid category
   test("get invalid candidate", async function () {
     const c1 = await poiService.getCategory("1234");
     assert.isNull(c1);
@@ -39,6 +43,7 @@ suite("Category API tests", function () {
     assert.isNull(c2);
   });
 
+  //testing deleting a category
   test("delete a category", async function () {
     let c = await poiService.createCategory(newCategory);
     assert(c._id != null);
@@ -47,6 +52,7 @@ suite("Category API tests", function () {
     assert(c == null);
   });
 
+  //testing getting all categories
   test("get all categories", async function () {
     for (let c of categories) {
       await poiService.createCategory(c);
@@ -56,6 +62,7 @@ suite("Category API tests", function () {
     assert.equal(allCategories.length, categories.length);
   });
 
+  //testing getting category details
   test("get categories detail", async function () {
     for (let c of categories) {
       await poiService.createCategory(c);
@@ -67,6 +74,7 @@ suite("Category API tests", function () {
     }
   });
 
+  // testing getting empty array
   test("get all categories empty", async function () {
     const allCategories = await poiService.getCategories();
     assert.equal(allCategories.length, 0);

@@ -19,7 +19,7 @@
       "password": "secret"
     }
   ],
-  "categories": [
+  "category": [
     {
       "name": "urban"
     },
@@ -74,5 +74,10 @@
       "description": "a 150 acres oasis within Waterford city",
       "location": "Waterford"
     }
-  ]
+  ],
+  "newPoi": {
+    "name": "The Fountain",
+    "description": "in the People's Park",
+    "location": "Waterford"
+  }
 }
