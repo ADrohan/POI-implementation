@@ -12,6 +12,17 @@ suite("User API tests", function () {
 
   const poiService = new PoiService("http://localhost:3000");
 
+  suiteSetup(async function() {
+    await poiService.deleteAllUsers();
+    const returnedUser = await poiService.createUser(newUser);
+    const response = await poiService.authenticate(newUser);
+  });
+
+  suiteTeardown(async function() {
+    await poiService.deleteAllUsers();
+    poiService.clearAuth();
+  });
+/*
   setup(async function () {
     await poiService.deleteAllUsers();
   });
@@ -19,7 +30,7 @@ suite("User API tests", function () {
   teardown(async function () {
     await poiService.deleteAllUsers();
   });
-
+*/
   // testing creating a user
   test("create a user", async function () {
     const returnedUser = await poiService.createUser(newUser);
@@ -53,20 +64,34 @@ suite("User API tests", function () {
 
   //testing getting all users
   test("get all users", async function () {
+    await poiService.deleteAllUsers();
+    await poiService.createUser(newUser);
+    await poiService.authenticate(newUser);
     for (let u of users) {
       await poiService.createUser(u);
     }
 
     const allUsers = await poiService.getUsers();
-    assert.equal(allUsers.length, users.length);
+    assert.equal(allUsers.length, users.length + 1);
+   // assert.equal(allUsers.length, users.length);
   });
 
   //testing getting user details
   test("get users detail", async function () {
+    await poiService.deleteAllUsers();
+    const user = await poiService.createUser(newUser);
+    await poiService.authenticate(newUser);
     for (let u of users) {
       await poiService.createUser(u);
     }
 
+    const testUser = {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      password: user.password,
+    };
+    users.unshift(testUser);
     const allUsers = await poiService.getUsers();
     for (var i = 0; i < users.length; i++) {
       assert(_.some([allUsers[i]], users[i]), "returnedUser must be a superset of newUser");
@@ -75,7 +100,11 @@ suite("User API tests", function () {
 
   // testing for an empty array
   test("get all users empty", async function () {
+    await poiService.deleteAllUsers();
+    const user = await poiService.createUser(newUser);
+    await poiService.authenticate(newUser);
     const allUsers = await poiService.getUsers();
-    assert.equal(allUsers.length, 0);
+   // assert.equal(allUsers.length, 0);
+    assert.equal(allUsers.length, 1);
   });
 });

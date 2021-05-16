@@ -8,11 +8,24 @@ const _ = require("lodash");
 // TEST SUITE FOR THE POI
 suite("Poi API tests", function () {
   let pois = fixtures.pois;
-  let categories = fixtures.categories;
+  let categories = fixtures.category;
+ // let categories = fixtures.categories;
   let newCategory = fixtures.newCategory;
   let newPoi = fixtures.newPoi;
+  let newUser = fixtures.newUser;
 
   const poiService = new PoiService("http://localhost:3000");
+
+  suiteSetup(async function() {
+    await poiService.deleteAllUsers();
+    const returnedUser = await poiService.createUser(newUser);
+    const response = await poiService.authenticate(newUser);
+  });
+
+  suiteTeardown(async function() {
+    await poiService.deleteAllUsers();
+    poiService.clearAuth();
+  });
 
   setup(async function () {
     poiService.deleteAllCategories();
