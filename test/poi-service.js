@@ -172,7 +172,7 @@ class PoiService {
       return null;
     }
   }
-
+  // authenticate user
   async authenticate(user) {
     try {
       const response = await axios.post(this.baseUrl + "/api/users/authenticate", user);
@@ -187,15 +187,20 @@ class PoiService {
     axios.defaults.headers.common["Authorization"] = "";
   }
 
-  // Poi - find by user
+  //get all images
+  async getImages() {
+    const response = await axios.get(this.baseUrl + '/api/images');
+    return response.data;
+  }
 
-  // IMAGESto do
-  // get images
-  // upload image
-  // delete an image
-  // fixtures image
-
-
+  async createImage(newImage) {
+    try {
+      const response = await axios.post(this.baseUrl + '/api/images', newImage);
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
 }
 
 module.exports = PoiService;

@@ -29,6 +29,16 @@ const ImageStore = {
     await cloudinary.v2.uploader.destroy(id, {});
   },
 
+  deleteAll: async function() {
+    await cloudinary.v2.uploader.destroy();
+  },
+
 };
 
 module.exports = ImageStore;
+
+
+
+
+
+

@@ -66,7 +66,7 @@ const Accounts = {
         return h
           .view("signup", {
             title: "Sign up error",
-          //  errors: error.details,
+            //  errors: error.details,
             errors: error.details,
           })
           .takeover()

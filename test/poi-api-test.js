@@ -9,7 +9,6 @@ const _ = require("lodash");
 suite("Poi API tests", function () {
   let pois = fixtures.pois;
   let categories = fixtures.category;
- // let categories = fixtures.categories;
   let newCategory = fixtures.newCategory;
   let newPoi = fixtures.newPoi;
   let newUser = fixtures.newUser;
@@ -89,9 +88,9 @@ suite("Poi API tests", function () {
     let p = await poiService.create(newPoi);
     assert(p._id != null);
     await poiService.deleteOnePoi(p._id);
-    p = await poiService.getPoi(p._id);
-    assert(p == null);
-    //assert.isNull(p2);
+    const p2 = await poiService.getPoi(p._id);
+    assert(p2 == null);
+
   });
 
 //  test creating a new poi

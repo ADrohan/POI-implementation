@@ -51,7 +51,6 @@ const Pois = {
           location: data.location,
           category: category._id,
           user: user._id,
-
         });
 
         console.log(newPoi)

@@ -2,6 +2,7 @@
 
 const Category = require('../models/category');
 const Poi = require("../models/poi");
+const User = require("../models/user");
 const Boom = require("@hapi/boom");
 
 
@@ -15,6 +16,7 @@ const Pois = {
       return pois;
     },
   },
+  //find one Poi
   findOne: {
     auth: {
       strategy: "jwt",
@@ -31,7 +33,7 @@ const Pois = {
       }
     }
   },
-
+  //find by category
   findByCategory: {
     auth: {
       strategy: "jwt",
@@ -41,7 +43,7 @@ const Pois = {
       return pois;
     },
   },
-
+  //create by category
   createByCategory: {
     auth: {
       strategy: "jwt",
@@ -57,7 +59,7 @@ const Pois = {
       return poi;
     },
   },
-
+  // delete all pois
   deleteAll: {
     auth: {
       strategy: "jwt",
@@ -67,13 +69,11 @@ const Pois = {
       return { success: true };
     },
   },
-
+  //delete one poi
   deleteOne:{
-    auth: {
-      strategy: "jwt",
-    },
+    auth: false,
     handler: async function(request, h){
-      const response = await Poi.findByIdAndDelete({_id: request.params.id});
+      const response = await Poi.deleteOne({_id: request.params.id});
       if (response)
       {
         return {success: true};
@@ -81,7 +81,7 @@ const Pois = {
       return Boom.notFound('Id not found');
     }
   },
-
+  //create a new poi
   create: {
     auth: {
       strategy: "jwt",
@@ -98,6 +98,22 @@ const Pois = {
   },
 
   /// find by user
+  findByUser: {
+    auth: false,
+    handler: async function (request, h) {
+      try {
+        const user = await User.findOne({ _id: request.params.id });
+        const poi = await Poi.find( { user: user });
+        if (!poi){
+          return Boom.notFound("No poi with this user ID");
+        }
+        return poi;
+      }
+      catch (err) {
+        return Boom.notFound("Error finding poi with this User ID");
+      }
+    }
+  },
 };
 
 module.exports = Pois;

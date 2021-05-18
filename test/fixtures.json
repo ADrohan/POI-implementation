@@ -79,5 +79,10 @@
     "name": "The Fountain",
     "description": "in the People's Park",
     "location": "Waterford"
+  },
+
+  "newImage": {
+    "public_id": "qkby8pxnvdqtdm2oused",
+    "url": "http://res.cloudinary.com/dmciux88r/image/upload/v1621087574/qkby8pxnvdqtdm2oused.jpg"
   }
 }

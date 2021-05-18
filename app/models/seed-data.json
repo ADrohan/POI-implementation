@@ -35,14 +35,13 @@
       "name": "rivers"
     }
   },
-
   "pois": {
     "_model": "Poi",
     "one": {
-      "name": "Tramore Beach",
-      "description": "A view of the strand in Tramore",
+      "name": "Tramore",
+      "description": "A view of the metalman",
       "location": "Tramore",
-      "user":"->users.homer",
+      "user": "->users.homer",
       "category": "->category.coastal"
     },
     "two": {
@@ -67,8 +66,8 @@
       "category": "->category.urban"
     },
     "five": {
-      "name": "The Prom",
-      "description": "The prom in tramore, perfect for an easy relaxed stroll",
+      "name": "Tramore Pier",
+      "description": "The pier in tramore, with the metalman in the distance",
       "location": "Tramore",
       "user": "->users.marge",
       "category": "->category.coastal"
@@ -76,6 +75,49 @@
     "six": {
       "name": "Waterford Nature Park",
       "description": "a 150 acres oasis within Waterford city",
+      "location": "Waterford",
+      "user": "->users.homer",
+      "category": "->category.urban"
+    },
+    "seven": {
+      "name": "Waterford Nature Park",
+      "description": "spring time",
+      "location": "Waterford",
+      "user": "->users.homer",
+      "category": "->category.urban"
+    },
+    "eight": {
+      "name": "Comeragh Mountains",
+      "description": "a haven for relaxation",
+      "location": "Waterford",
+      "user": "->users.bart",
+      "category": "->category.mountains"
+    },
+    "nine": {
+      "name": "Comeragh Mountains",
+      "description": "a lone sheep",
+      "location": "Waterford",
+      "user": "->users.bart",
+      "category": "->category.mountains"
+    },
+    "ten": {
+      "name": "Waterford Nature Park",
+      "description": "the stream near the entrance",
+      "location": "Waterford",
+      "user": "->users.marge",
+      "category": "->category.urban"
+    },
+    "eleven": {
+      "name": "Daisy's",
+      "description": "the stream near the entrance",
+      "location": "Waterford",
+      "user": "->users.marge",
+      "category": "->category.urban"
+    },
+
+    "twelve": {
+      "name": "Nature Park",
+      "description": "the stream near the entrance",
       "location": "Waterford",
       "user": "->users.homer",
       "category": "->category.urban"
