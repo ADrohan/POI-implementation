@@ -6,25 +6,25 @@
       <label class="uk-form-label" for="form-stacked-text">Name of Point of Interest</label>
       <div class=" uk-inline uk-width-1-1">
         <span class="uk-form-icon" uk-icon="icon: user"></span>
-        <input class="uk-input uk-form-large" type="text" name="name" />
+        <input class="uk-input uk-form-large" type="text" placeholder="Give this poi a name" name="name" />
       </div>
     </div>
     <div class="uk-margin uk-text-left">
       <label class="uk-form-label" for="form-stacked-text">Description</label>
       <div class=" uk-inline uk-width-1-1">
         <span class="uk-form-icon" uk-icon="icon: comment"></span>
-        <input class="uk-input uk-form-large" type="text" name="description" />
+        <input class="uk-input uk-form-large" type="text" placeholder="Enter a brief description" name="description" />
       </div>
     </div>
     <div class="uk-margin uk-text-left">
       <label class="uk-form-label" for="form-stacked-text">Location</label>
       <div class=" uk-inline uk-width-1-1">
         <span class="uk-form-icon" uk-icon="icon: comment"></span>
-        <input class="uk-input uk-form-large" type="text" name="location" />
+        <input class="uk-input uk-form-large" type="text" placeholder="e.g. Waterford, Tramore, Dunmore East" name="location" />
       </div>
     </div>
     <div class="uk-margin  uk-width-1-2@m uk-text-left">
-      <label class="uk-form-label" for="form-stacked-select">Categories</label>
+      <label class="uk-form-label" for="form-stacked-select">Categories (select from dropdown menu)</label>
       <div class="uk-form-controls">
         <select name="category" class="uk-select" id="form-stacked-select">
           {{#each categories}}
