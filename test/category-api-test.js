@@ -1,7 +1,6 @@
 "use strict";
 
 const assert = require("chai").assert;
-//const axios = require("axios");
 const PoiService = require("./poi-service");
 const fixtures = require("./fixtures.json");
 const _ = require('lodash');

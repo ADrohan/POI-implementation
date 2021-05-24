@@ -87,6 +87,19 @@ class PoiService {
       return null;
     }
   }
+//update user
+  async updateUser(id, updateUser)
+  {
+    try
+    {
+      const response = await axios.post(this.baseUrl + "/api/users/" +id, updateUser);
+      return response.data
+    }catch (e)
+    {
+      console.log(e.message);
+      return null;
+    }
+  }
 
 // delete all users
   async deleteAllUsers() {
@@ -157,18 +170,36 @@ class PoiService {
   //delete one poi by id
   async deleteOnePoi(id) {
     try {
-      const response = await axios.delete(this.baseUrl + "/api/pois" + id);
+      const response = await axios.delete(this.baseUrl + "/api/pois/" + id);
       return response.data;
     } catch (e) {
       return null;
     }
   }
-  // create a new poi
+  // create a new poi without a category
   async create(newPoi){
     try {
       const response = await axios.post(this.baseUrl + '/api/pois', newPoi);
       return response.data;
     } catch (e) {
+      return null;
+    }
+  }
+  // creat a poi with a category
+  async createPoiWithCat(id,newPoi) {
+    try
+    {
+      const response = await axios.post(this.baseUrl + '/api/categories/'+id+'/pois', newPoi);
+      return response.data;
+    }catch (e){
+      return null;
+    }
+  }
+  async updatePoi(id, updatePoi){
+    try{
+      const response = await axios.post(this.baseUrl + '/api/pois/'+id, updatePoi);
+      return response.data;
+    } catch(e){
       return null;
     }
   }

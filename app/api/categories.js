@@ -1,5 +1,3 @@
-// The app currently doesn't include creation/deletion of categories
-
 'use strict';
 
 const Category = require('../models/category');

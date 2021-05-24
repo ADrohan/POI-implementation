@@ -8,10 +8,11 @@ const _ = require("lodash");
 // TEST SUITE FOR THE POI
 suite("Poi API tests", function () {
   let pois = fixtures.pois;
-  let categories = fixtures.category;
   let newCategory = fixtures.newCategory;
+  let newCategory1 = fixtures.newCategory1;
   let newPoi = fixtures.newPoi;
   let newUser = fixtures.newUser;
+
 
   const poiService = new PoiService("http://localhost:3000");
 
@@ -82,21 +83,31 @@ suite("Poi API tests", function () {
     assert(poi == null);
   });
 
-  //this test is not running
+  // Delete a Poi
   test('delete one poi', async function ()
   {
     let p = await poiService.create(newPoi);
-    assert(p._id != null);
     await poiService.deleteOnePoi(p._id);
     const p2 = await poiService.getPoi(p._id);
+    console.log(p2);
     assert(p2 == null);
-
   });
 
-//  test creating a new poi
+//  test creating a new poi with no category
   test('create one poi', async function ()
   {
     const returnedPoi = await poiService.create(newPoi);
+    assert(_.some([returnedPoi], newPoi),
+      'returnedPoi must be a subset of newPoi');
+    assert.isDefined(returnedPoi._id);
+  });
+
+  //  test creating a new poi with a category
+  test('create one poi with a category', async function ()
+  {
+    const returnedCategory = await poiService.createCategory(newCategory);
+    const returnedPoi = await poiService.createPoiWithCat(returnedCategory._id, newPoi)
+    console.log(returnedPoi);
     assert(_.some([returnedPoi], newPoi),
       'returnedPoi must be a subset of newPoi');
     assert.isDefined(returnedPoi._id);
@@ -143,8 +154,37 @@ suite("Poi API tests", function () {
     }
   });
 
+  // update a poi
+  test('Update a Poi', async function (){
+
+    const category = await poiService.createCategory(newCategory);
+    const poi = {
+      "name": newPoi.name,
+      "description": newPoi.description,
+      "location": newPoi.location,
+      "category": category
+    }
+    const initialPoi = await poiService.createPoiWithCat(category._id, poi);
+    console.log(initialPoi);
+    const catChange = await poiService.createCategory(newCategory1);
+    const updatedPoi = {
+      "name": 'updated',
+      "description": 'updated',
+      "location": 'updated',
+      "category": catChange
+    }
+    console.log(updatedPoi);
+    const newDetails = await poiService.updatePoi(initialPoi._id, updatedPoi);
+    console.log(newDetails);
+    const pois = await poiService.getPois();
+    assert.equal(pois[0].name, newDetails.name, updatedPoi.name);
+    assert.equal(pois[0].description, newDetails.description, updatedPoi.description);
+    assert.equal(pois[0].location, newDetails.location, updatedPoi.location);
+    assert.equal(pois[0].category, newDetails.category, updatedPoi.category);
+  });
+
   // test getting empty array
-  test('get all pois empty', async function ()
+  test('get all empty pois', async function ()
   {
     const pois = await poiService.getPois();
     assert.equal(pois.length,0);
