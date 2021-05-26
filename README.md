@@ -1,4 +1,4 @@
-# Web Dev - Poi Assignment 2
+# Web Dev - Poi V1.2 Assignment 2
 
 ### API Implementation and Security
 _________
@@ -12,9 +12,9 @@ Note: a precursor to this git repository is the repository _enterprise-web-dev-a
 ### Poi Core Features
 * Sign up / login / logout
 * Update User account settings
-* Create / View / Delete Pois with follwing characteristics: Name, description, location, category supporting image upload / view and delete
+* Create / View / Delete Pois with following characteristics: Name, description, location, category supporting image upload / view and delete
 * Public Galley
-* Current weather
+* Current Waterford weather
 
 ## Plugins and Frameworks Used
 
