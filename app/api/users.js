@@ -44,6 +44,30 @@ const Users = {
     },
   },
 
+  update: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function(request, h) {
+      try {
+        const userEdit = request.payload;
+        const user_id = request.params.id;
+        console.log(user_id);
+        const user = await User.findOne({_id: user_id});
+        console.log(user);
+        user.firstName = userEdit.firstName;
+        user.lastName = userEdit.lastName;
+        user.email = userEdit.email;
+        user.password = userEdit.password;
+        await user.save();
+        return user;
+      } catch (err) {
+        console.log(err.message);
+        return Boom.badImplementation("error updating user");
+      }
+    },
+  },
+
   deleteAll: {
     auth: {
       strategy: "jwt",
@@ -85,26 +109,6 @@ const Users = {
     },
   },
 
-/*
-  authenticate: {
-    auth: false,
-    handler: async function (request, h) {
-      try {
-        const user = await User.findOne({ email: request.payload.email });
-        if (!user) {
-          return Boom.unauthorized("User not found");
-        } else if (user.password !== request.payload.password) {
-          return Boom.unauthorized("Invalid password");
-        } else {
-          return user;
-        }
-      } catch (err) {
-        return Boom.notFound("internal db failure");
-      }
-    },
-  },
-
- */
 };
 
 module.exports = Users;

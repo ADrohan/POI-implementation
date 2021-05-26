@@ -69,7 +69,6 @@ suite("Category API tests", function () {
     for (let c of categories) {
       await poiService.createCategory(c);
     }
-
     const allCategories = await poiService.getCategories();
     assert.equal(allCategories.length, categories.length);
   });
@@ -79,7 +78,6 @@ suite("Category API tests", function () {
     for (let c of categories) {
       await poiService.createCategory(c);
     }
-
     const allCategories = await poiService.getCategories();
     for (var i = 0; i < categories.length; i++) {
       assert(_.some([allCategories[i]], categories[i]), "returnedCategory must be a superset of newCategory");

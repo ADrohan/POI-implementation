@@ -33,7 +33,7 @@ const Pois = {
       }
     }
   },
-  //find by category
+  //find pois by category
   findByCategory: {
     auth: {
       strategy: "jwt",
@@ -43,7 +43,7 @@ const Pois = {
       return pois;
     },
   },
-  //create by category
+  //create with category
   createByCategory: {
     auth: {
       strategy: "jwt",
@@ -51,6 +51,7 @@ const Pois = {
     handler: async function (request, h) {
       let poi = new Poi(request.payload);
       const category = await Category.findOne({ _id: request.params.id });
+      console.log(category);
       if (!category) {
         return Boom.notFound("No Category with this id");
       }
@@ -71,7 +72,9 @@ const Pois = {
   },
   //delete one poi
   deleteOne:{
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function(request, h){
       const response = await Poi.deleteOne({_id: request.params.id});
       if (response)
@@ -114,6 +117,29 @@ const Pois = {
       }
     }
   },
+  update: {
+    auth: {
+      strategy: 'jwt'
+    },
+    handler: async function(request, h)
+    {
+      try
+      {
+        const userEdit = request.payload;
+        const poi_id = request.params.id;
+        const poi = await Poi.findById(poi_id);
+        poi.name = userEdit.name;
+        poi.description = userEdit.description;
+        poi.location = userEdit.location;
+        poi.category = userEdit.category;
+        await poi.save();
+        return poi;
+      } catch (err)
+      {
+        return Boom.badImplementation('error updating poi');
+      }
+    }
+  }
 };
 
 module.exports = Pois;

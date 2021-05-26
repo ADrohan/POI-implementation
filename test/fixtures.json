@@ -4,19 +4,19 @@
       "firstName": "Homer",
       "lastName": "Simpson",
       "email": "homer@simpson.com",
-      "password": "secret"
+      "password": "Secret12$"
     },
     {
       "firstName": "Marge",
       "lastName": "Simpson",
       "email": "marge@simpson.com",
-      "password": "secret"
+      "password": "Secret12$"
     },
     {
       "firstName": "Bart",
       "lastName": "Simpson",
       "email": "bart@simpson.com",
-      "password": "secret"
+      "password": "Secret12$"
     }
   ],
   "category": [
@@ -37,11 +37,15 @@
   {
     "name": "lakes"
   },
+  "newCategory1":
+  {
+    "name": "Forts"
+  },
   "newUser": {
     "firstName": "Maggie",
     "lastName": "Simpson",
     "email": "maggie@simpson.com",
-    "password": "secret"
+    "password": "Secret12$"
   },
   "pois": [
     {
@@ -80,7 +84,6 @@
     "description": "in the People's Park",
     "location": "Waterford"
   },
-
   "newImage": {
     "public_id": "qkby8pxnvdqtdm2oused",
     "url": "http://res.cloudinary.com/dmciux88r/image/upload/v1621087574/qkby8pxnvdqtdm2oused.jpg"

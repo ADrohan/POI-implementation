@@ -3,6 +3,7 @@ const User = require("../models/user");
 const Boom = require("@hapi/boom");
 const Joi = require("@hapi/joi");
 const Weather = require("../utils/weather");
+const sanitizeHtml = require("sanitize-html");
 /*
 Controller for user accounts
 - signup
@@ -51,13 +52,13 @@ const Accounts = {
     auth: false,
     validate: {
       payload: {
-        //firstName: Joi.string().required(),
-        firstName:Joi.string().regex(/^[A-ZÁÉÍÓÚ][A-Za-zÁÉÍÓÚáéíóú]/).max(20),
-        //lastName: Joi.string().required(),
-        lastName: Joi.string().regex(/^[A-ZÁÉÍÓÚ][ A-Za-zÁÉÍÓÚáéíóú]/).max(30),
+        firstName: Joi.string().required(),
+        //firstName:Joi.string().regex(/^[A-ZÁÉÍÓÚ][A-Za-zÁÉÍÓÚáéíóú]/).max(20),
+        lastName: Joi.string().required(),
+        //lastName: Joi.string().regex(/^[A-ZÁÉÍÓÚ][ A-Za-zÁÉÍÓÚáéíóú]/).max(30),
         email: Joi.string().email().required(),
-        //password: Joi.string().required(),
-        password: Joi.string().regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/),
+        password: Joi.string().required(),
+        //password: Joi.string().regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/),
       },
       options: {
         abortEarly: false,
@@ -74,19 +75,26 @@ const Accounts = {
       },
     },
     handler: async function (request, h) {
+      const payload = request.payload;
+      //sanitozation of data
+      const santitzedFirstname = sanitizeHtml(payload.firstName);
+      const sanitizedLastname = sanitizeHtml(payload.lastName);
+      const sanitizedEmail = sanitizeHtml(payload.email);
+      const sanitizedPassword = sanitizeHtml(payload.password);
       try {
-        const payload = request.payload;
-        let user = await User.findByEmail(payload.email);
+        let user = await User.findByEmail(sanitizedEmail);
         if (user) {
           const message = "Email address is already registered";
           throw Boom.badData(message);
         }
+
         const newUser = new User({
-          firstName: payload.firstName,
-          lastName: payload.lastName,
-          email: payload.email,
-          password: payload.password,
+          firstName: santitzedFirstname,
+          lastName: sanitizedLastname,
+          email: sanitizedEmail,
+          password: sanitizedPassword,
         });
+
         user = await newUser.save();
         request.cookieAuth.set({ id: user.id });
         return h.redirect("/home");
@@ -95,6 +103,7 @@ const Accounts = {
       }
     },
   },
+
   // controller to view the login page
   showLogin: {
     auth: false,
@@ -102,6 +111,7 @@ const Accounts = {
       return h.view("login", { title: "Login to Points of Information" });
     },
   },
+
   /* When the user clicks on the submit button, the details entered are validated.
   If validated the user is redirected to the home page. Otherwise they will
   be informed of any errors and returned to the signup page.
@@ -111,9 +121,8 @@ const Accounts = {
     validate: {
       payload: {
         email: Joi.string().email().required(),
-        //password: Joi.string().required(),
-        password: Joi.string().regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/),
-
+        password: Joi.string().required(),
+        //password: Joi.string().regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/),
       },
       options: {
         abortEarly: false,
@@ -129,14 +138,18 @@ const Accounts = {
       },
     },
     handler: async function (request, h) {
-      const { email, password } = request.payload;
+      const payload = request.payload;
+      //sanitization of data
+      const sanitizedEmail = sanitizeHtml(payload.email);
+      const sanitizedPassword = sanitizeHtml(payload.password);
       try {
-        let user = await User.findByEmail(email);
+        let user = await User.findByEmail(sanitizedEmail);
         if (!user) {
           const message = "Email address is not registered";
           throw Boom.unauthorized(message);
         }
-        user.comparePassword(password);
+
+        user.comparePassword(sanitizedPassword);
         request.cookieAuth.set({ id: user.id });
         return h.redirect("/home");
       } catch (err) {
@@ -144,6 +157,7 @@ const Accounts = {
       }
     },
   },
+
   // controller to show your account settings
   showSettings: {
     handler: async function (request, h) {
@@ -156,17 +170,18 @@ const Accounts = {
       }
     },
   },
+
   // controller to update settings
   updateSettings: {
     validate: {
       payload: {
-        //firstName: Joi.string().required(),
-        firstName: Joi.string().regex(/^[A-ZÁÉÍÓÚ][A-Za-zÁÉÍÓÚáéíóú]/).max(20),
-        //lastName: Joi.string().required(),
-        lastName: Joi.string().regex(/^[A-ZÁÉÍÓÚ][ A-Za-zÁÉÍÓÚáéíóú]/).max(30),
+        firstName: Joi.string().required(),
+        //firstName: Joi.string().regex(/^[A-ZÁÉÍÓÚ][A-Za-zÁÉÍÓÚáéíóú]/).max(20),
+        lastName: Joi.string().required(),
+        //lastName: Joi.string().regex(/^[A-ZÁÉÍÓÚ][ A-Za-zÁÉÍÓÚáéíóú]/).max(30),
         email: Joi.string().email().required(),
-        //password: Joi.string().required(),
-        password: Joi.string().regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/),
+        password: Joi.string().required(),
+        //password: Joi.string().regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/),
       },
       options: {
         abortEarly: false,
@@ -186,17 +201,24 @@ const Accounts = {
         const userEdit = request.payload;
         const id = request.auth.credentials.id;
         const user = await User.findById(id);
-        user.firstName = userEdit.firstName;
-        user.lastName = userEdit.lastName;
-        user.email = userEdit.email;
-        user.password = userEdit.password;
+        //sanitization of data
+        const sanitizedFirstname = sanitizeHtml(userEdit.firstName);
+        const sanitizedLastname = sanitizeHtml(userEdit.lastName);
+        const sanitizedEmail = sanitizeHtml(userEdit.email);
+        const sanitizedPassword = sanitizeHtml(userEdit.password);
+        user.firstName = sanitizedFirstname;
+        user.lastName = sanitizedLastname;
+        user.email = sanitizedEmail;
+        user.password = sanitizedPassword;
         await user.save();
+
         return h.redirect("/settings");
       } catch (err) {
         return h.view("main", { errors: [{ message: err.message }] });
       }
     },
   },
+
 // controller to logout and clear the cookies
   logout: {
     handler: function (request, h) {
