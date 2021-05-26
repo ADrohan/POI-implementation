@@ -4,6 +4,8 @@ const Boom = require("@hapi/boom");
 const Joi = require("@hapi/joi");
 const Weather = require("../utils/weather");
 const sanitizeHtml = require("sanitize-html");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 /*
 Controller for user accounts
 - signup
@@ -88,11 +90,13 @@ const Accounts = {
           throw Boom.badData(message);
         }
 
+        const hash = await bcrypt.hash(sanitizedPassword, saltRounds);    // ADDED
+
         const newUser = new User({
           firstName: santitzedFirstname,
           lastName: sanitizedLastname,
           email: sanitizedEmail,
-          password: sanitizedPassword,
+          password: hash,
         });
 
         user = await newUser.save();
@@ -149,7 +153,7 @@ const Accounts = {
           throw Boom.unauthorized(message);
         }
 
-        user.comparePassword(sanitizedPassword);
+        await user.comparePassword(sanitizedPassword);
         request.cookieAuth.set({ id: user.id });
         return h.redirect("/home");
       } catch (err) {
@@ -206,10 +210,11 @@ const Accounts = {
         const sanitizedLastname = sanitizeHtml(userEdit.lastName);
         const sanitizedEmail = sanitizeHtml(userEdit.email);
         const sanitizedPassword = sanitizeHtml(userEdit.password);
+        const hash = await bcrypt.hash(sanitizedPassword, saltRounds);
         user.firstName = sanitizedFirstname;
         user.lastName = sanitizedLastname;
         user.email = sanitizedEmail;
-        user.password = sanitizedPassword;
+        user.password = hash;
         await user.save();
 
         return h.redirect("/settings");
